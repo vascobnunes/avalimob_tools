@@ -1,7 +1,7 @@
 import sys
 import os
 from PyQt5.QtCore import pyqtSlot
-from PyQt5.QtWidgets import QApplication,QDialog
+from PyQt5.QtWidgets import QApplication, QDialog
 from PyQt5.uic import loadUi
 from PyQt5.QtCore import QRegExp, QEvent, QObject
 from PyQt5.QtGui import QRegExpValidator
@@ -12,7 +12,7 @@ from resizeimage import resizeimage
 def resize_image(path, image, basewidth, qual):
     image_full_path = os.path.join(path, image)
     img = Image.open(image_full_path)
-    if int(basewidth)>0:
+    if int(basewidth) > 0:
         resizeimage.resize_width(img, int(basewidth))
     new_name = os.path.join(path, "resize" + image)
     if int(qual) > 0:
@@ -20,10 +20,11 @@ def resize_image(path, image, basewidth, qual):
     else:
         img.save(new_name)
 
+
 class avalimob(QDialog):
     def __init__(self):
-        super(avalimob,self).__init__()
-        loadUi('avalimob_tools.ui',self)
+        super(avalimob, self).__init__()
+        loadUi('avalimob_tools.ui', self)
         self.setWindowTitle('Ferramentas de apoio a avaliacao imobiliaria')
         self.lineEdit.setText(os.getcwd())
         reg_ex = QRegExp("[0-9][0-9][0-9]")
@@ -62,12 +63,13 @@ class avalimob(QDialog):
             if f.endswith(".jpg") or f.endswith(".png"):
                 resize_image(filespath, f, resize_perc, rescale_perc)
 
+
 def main():
-    app=QApplication(sys.argv)
-    widget=avalimob()
+    app = QApplication(sys.argv)
+    widget = avalimob()
     widget.show()
     sys.exit(app.exec_())
 
-if __name__ == '__main__':
 
+if __name__ == '__main__':
     main()
